@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Customer } from "./customer.entity";
 
 @Entity()
@@ -8,11 +8,14 @@ export class Wallet{
     id: string;
 
     @Column("numeric")
-    balance: string;
+    balance: number;
 
     @Column("uuid")
     customerid: string;
-    
+
+    @OneToOne(() => Customer)
+    customer: Customer;
+
     @Column("timestamptz")
     createdat: string;
 
@@ -22,11 +25,8 @@ export class Wallet{
     @Column("timestamptz")
     deletedat: string;
 
-    @OneToOne(() => Customer, {
-        cascade: true,
-        onDelete: 'CASCADE',
-    })
-    @JoinColumn()
-    customer: Customer;
+    // @OneToOne(() => Customer)
+    // @JoinColumn()
+    // customer: Customer;
     
 }

@@ -42,4 +42,10 @@ export class AppController {
     this.appService.deleteCustomer(customerid);
     return null;
   }
+
+  // @Post("/api/wallet")
+  // createWallet(
+  //   @Body() payload: WalletDTO){
+  //   return this.appService.createWallet(payload);
+  // }
 }

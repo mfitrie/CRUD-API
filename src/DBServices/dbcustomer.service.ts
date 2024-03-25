@@ -5,26 +5,42 @@ import * as dayjs from "dayjs";
 import { CustomerDTO } from "src/DTO/customer.dto";
 import { Customer } from "src/Entity/customer.entity";
 import { Repository } from "typeorm";
+import { DBWallet } from "./dbwallet.service";
 
 @Injectable()
 export class DBCustomer{
     constructor(
         @InjectRepository(Customer)
-        private customerRepository: Repository<Customer>
+        private customerRepository: Repository<Customer>,
+        private readonly dbWallet: DBWallet
     ){}
 
     findAllCustomer(){
-        return this.customerRepository.find();
+        return this.customerRepository
+        .query(`
+            SELECT c.firstname, c.lastname, c.fulladdress, w.balance
+            FROM customer as c
+            JOIN wallet as w
+            ON c.id = w.customerid
+        `);
     }
 
-    createCustomer(payload: CustomerDTO): Promise<Customer>{
-        const newCustomer = this.customerRepository.create({
+    async createCustomer(payload: CustomerDTO): Promise<Customer>{
+        const newCustomer = this.customerRepository.create({                
             firstname: payload.firstname,
             lastname: payload.lastname,
             fulladdress: payload.fulladdress,
         });
 
-        return this.customerRepository.save(newCustomer);
+        const createdCustomer = await this.customerRepository.save(newCustomer);
+        
+        await this.dbWallet.createWallet({
+            balance: 0,
+            customerid: createdCustomer.id,
+        });
+
+        return createdCustomer;
+
     }
 
     updateCustomer(payload: CustomerDTO): Promise<Customer>{

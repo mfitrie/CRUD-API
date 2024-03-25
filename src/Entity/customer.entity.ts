@@ -23,4 +23,11 @@ export class Customer{
 
     @Column("timestamptz")
     deletedat: string;
+
+    // @OneToOne(() => Wallet, {
+    //     cascade: true,
+    //     onDelete: "CASCADE",
+    // })
+    // @JoinColumn()
+    // wallet: Wallet;
 }

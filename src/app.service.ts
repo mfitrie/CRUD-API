@@ -2,11 +2,13 @@
 import { Injectable } from '@nestjs/common';
 import { DBCustomer } from './DBServices/dbcustomer.service';
 import { CustomerDTO } from './DTO/customer.dto';
+import { DBWallet } from './DBServices/dbwallet.service';
 
 @Injectable()
 export class AppService {
   constructor(
-    private readonly dbCustomer: DBCustomer
+    private readonly dbCustomer: DBCustomer,
+    private readonly dbWallet: DBWallet,
   ){}
 
   getHello(): string {
@@ -28,5 +30,10 @@ export class AppService {
   async deleteCustomer(customerid: string){
     return await this.dbCustomer.deleteCustomer(customerid);
   }
+
+
+  // async createWallet(payload: WalletDTO){
+  //   return await this.dbWallet.createWallet(payload);
+  // }
 
 }
