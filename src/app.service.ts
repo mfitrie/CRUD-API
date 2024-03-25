@@ -32,6 +32,10 @@ export class AppService {
     return await this.dbCustomer.deleteCustomer(customerid);
   }
 
+  async hardDeleteCustomer(customerid: string){
+    return await this.dbCustomer.hardDeleteCustomer(customerid);
+  }
+
 
   // ----- Wallet
   async findAllWallet(){

@@ -45,6 +45,16 @@ export class AppController {
   }
 
 
+  @Delete("/api/customer/harddelete/:id")
+  @HttpCode(HttpStatus.NO_CONTENT)
+  hardDeleteCustomer(
+    @Param("id") customerid: string
+  ){
+    this.appService.hardDeleteCustomer(customerid);
+    return null;
+  }
+
+
   //--- Wallet
   @Get("/api/wallet")
   findAllWallet(){

@@ -58,4 +58,10 @@ export class DBCustomer{
         })
     }
 
+    hardDeleteCustomer(customerid: string){
+        return this.customerRepository.delete({
+            id: customerid,
+        });
+    }
+
 }
