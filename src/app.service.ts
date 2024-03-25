@@ -34,9 +34,9 @@ export class AppService {
 
 
   // ----- Wallet
-  // async createWallet(payload: WalletDTO){
-  //   return await this.dbWallet.createWallet(payload);
-  // }
+  async findAllWallet(){
+    return await this.dbWallet.findAllWallet();
+  }
 
   async updateWallet(payload: WalletDTO){
     return await this.dbWallet.updateWallet(payload);

@@ -46,13 +46,12 @@ export class AppController {
 
 
   //--- Wallet
-  // @Post("/api/wallet")
-  // createWallet(
-  //   @Body() payload: WalletDTO){
-  //   return this.appService.createWallet(payload);
-  // }
+  @Get("/api/wallet")
+  findAllWallet(){
+    return this.appService.findAllWallet();
+  }
 
-  
+
   @Patch("/api/wallet")
   updateWallet(
     @Body() payload: WalletDTO

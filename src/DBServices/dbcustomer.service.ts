@@ -18,7 +18,7 @@ export class DBCustomer{
     findAllCustomer(){
         return this.customerRepository
         .query(`
-            SELECT c.firstname, c.lastname, c.fulladdress, w.balance, w.customerid
+            SELECT c.firstname, c.lastname, c.fulladdress, c.createdat, c.updatedat, c.deletedat, w.balance, w.customerid
             FROM customer as c
             JOIN wallet as w
             ON c.id = w.customerid
@@ -46,6 +46,7 @@ export class DBCustomer{
     updateCustomer(payload: CustomerDTO): Promise<Customer>{
         return this.customerRepository.save({
             id: payload.id,
+            updatedat: dayjs().toISOString(),
             ...payload
         })
     }
