@@ -3,6 +3,7 @@ import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post
 import { AppService } from './app.service';
 import { CustomerDTO } from './DTO/customer.dto';
 import { ZodValidationPipe } from 'nestjs-zod';
+import { WalletDTO } from './DTO/wallet.dto';
 
 @Controller()
 @UsePipes(ZodValidationPipe)
@@ -43,9 +44,21 @@ export class AppController {
     return null;
   }
 
+
+  //--- Wallet
   // @Post("/api/wallet")
   // createWallet(
   //   @Body() payload: WalletDTO){
   //   return this.appService.createWallet(payload);
   // }
+
+  
+  @Patch("/api/wallet")
+  updateWallet(
+    @Body() payload: WalletDTO
+  ){
+    return this.appService.updateWallet(payload);  
+  }
+  //--- Wallet
+
 }

@@ -25,4 +25,22 @@ export class DBWallet{
         return await this.walletRepository.save(newWallet);
     }
 
+    // add or deduct wallet balance
+    async updateWallet(payload: WalletDTO): Promise<Wallet[]>{
+        await this.walletRepository
+        .createQueryBuilder()
+        .update()
+        .set({
+            balance: payload.balance
+        })
+        .where(`customerid = :customerid`, {
+            customerid: payload.customerid
+        })
+        .execute()
+
+        return await this.walletRepository.findBy({
+            customerid: payload.customerid,
+        })
+    }
+
 }

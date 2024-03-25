@@ -18,7 +18,7 @@ export class DBCustomer{
     findAllCustomer(){
         return this.customerRepository
         .query(`
-            SELECT c.firstname, c.lastname, c.fulladdress, w.balance
+            SELECT c.firstname, c.lastname, c.fulladdress, w.balance, w.customerid
             FROM customer as c
             JOIN wallet as w
             ON c.id = w.customerid
